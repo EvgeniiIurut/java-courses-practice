@@ -12,7 +12,7 @@ class StringUtilsTest {
     @Test
     void should_normalize_text() {
         final String result = StringUtils.normalize("LoLkeKaTel");
-        assertThat(result).isEqualTo("LoLkeKaTel");
+        assertThat(result).isEqualTo("lolkekatel");
     }
 
     @Test
