@@ -13,7 +13,7 @@ public class StringUtils {
         throw new UnsupportedOperationException("Implement it!");
     }
 
-    public static List<String> mergeToSingleString(List<String> lines) {
+    public static String mergeToSingleString(List<String> lines) {
         throw new UnsupportedOperationException("Implement it!");
     }
 

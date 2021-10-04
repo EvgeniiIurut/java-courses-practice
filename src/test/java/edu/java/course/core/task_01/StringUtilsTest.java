@@ -46,7 +46,13 @@ class StringUtilsTest {
 
     @Test
     void should_reverse() {
-        final String result = StringUtils.replaceAllDots("trololo");
+        final String result = StringUtils.reverse("trololo");
         assertThat(result).isEqualTo("ololort");
+    }
+
+    @Test
+    void should_merge_to_single_string() {
+        final String result = StringUtils.mergeToSingleString(List.of("lol", "kek"));
+        assertThat(result).isEqualTo("lolkek");
     }
 }
