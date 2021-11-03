@@ -17,7 +17,7 @@ class StringUtilsTest {
 
     @Test
     void should_split_on_lines() {
-        final List<String> lines = StringUtils.splitOnLines("Line 1\nLine 2\nLine3");
+        final List<String> lines = StringUtils.splitOnLines("Line 1\nLine 2\nLine 3");
 
         assertThat(lines).isEqualTo(List.of("Line 1", "Line 2", "Line 3"));
     }
