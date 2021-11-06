@@ -12,6 +12,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public Worker nextWorker() {
+        // TODO: 06.11.2021 implement round robin algorithm
         return workers.pop();
     }
 }
