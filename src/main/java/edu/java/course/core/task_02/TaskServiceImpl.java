@@ -1,16 +1,20 @@
 package edu.java.course.core.task_02;
 
-import java.time.Instant;
-import java.util.Comparator;
 import java.util.Objects;
-import java.util.PriorityQueue;
+import java.util.Optional;
 
 public class TaskServiceImpl implements TaskService {
-    private WorkerService workerService;
-    public PriorityQueue<Task> tasks = new PriorityQueue<>(Comparator.comparing(Task::getPriority).reversed().thenComparing(Task::getCreatedDate));
+    private final WorkerService workerService;
+    private final TaskQueue tasks;
 
-    public TaskServiceImpl(WorkerService workerService) {
+//    public TaskServiceImpl(WorkerService workerService) {
+//        this.workerService = Objects.requireNonNull(workerService, "WorkerService is null");
+//        this.tasks = new PriorityQueue<>(comparing(Task::getPriority).reversed().thenComparing(Task::getCreatedDate));
+//    }
+
+    public TaskServiceImpl(WorkerService workerService, TaskQueue queue) {
         this.workerService = Objects.requireNonNull(workerService, "WorkerService is null");
+        this.tasks = Objects.requireNonNull(queue, "queue is null");
     }
 
     private int getEnumPriority(Task task) {
@@ -28,17 +32,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task addTask(Task task) {
-        TaskPriority priority = task.getPriority();
-        Instant instant = task.getCreatedDate();
         Worker worker = workerService.nextWorker();
-        Task task_temp = new Task(priority, instant, worker);
-        tasks.add(task_temp);
-        return task_temp;
+        Task assignedTask = task.assign(worker);
+        return tasks.add(assignedTask);
     }
 
     @Override
-    public Task nextTask(Worker assignee) {
-        Task task = tasks.isEmpty() ? null : tasks.poll();
-        return task;
+    public Optional<Task> nextTask(Worker assignee) {
+        return tasks.poll(assignee);
     }
 }

@@ -22,6 +22,10 @@ public class Task {
         this.assignee = Optional.of(worker);
     }
 
+    public Task assign(Worker worker) {
+        return new Task(this.priority, this.createdDate, worker);
+    }
+
     public Instant getCreatedDate() {
         return createdDate;
     }
@@ -30,4 +34,7 @@ public class Task {
         return priority;
     }
 
+    public Optional<Worker> getAssignee() {
+        return assignee;
+    }
 }
