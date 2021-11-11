@@ -1,6 +1,13 @@
 package edu.java.course.core.task_02;
 
-public interface WorkerService {
+import java.util.ArrayList;
 
+public interface WorkerService {
+    ArrayList<Worker> workers = new ArrayList<>();
+
+    /**
+     *
+     * @return
+     */
     Worker nextWorker();
 }
