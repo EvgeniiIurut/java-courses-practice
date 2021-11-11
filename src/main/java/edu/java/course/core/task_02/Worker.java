@@ -20,7 +20,7 @@ public class Worker {
     }
 
     public Worker(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = Objects.requireNonNull(firstName, "firstName is null");
+        this.lastName = Objects.requireNonNull(lastName, "lastName is null");
     }
 }
