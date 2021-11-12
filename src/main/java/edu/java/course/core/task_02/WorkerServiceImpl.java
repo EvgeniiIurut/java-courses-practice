@@ -10,6 +10,9 @@ public class WorkerServiceImpl implements WorkerService {
 
     public WorkerServiceImpl(List<Worker> workers) {
         this.workers = Objects.requireNonNull(workers, "workers is null");
+        if (workers.contains(null)) {
+            throw new IllegalArgumentException("Contain null worker");
+        }
         iterator = workers.iterator();
     }
 

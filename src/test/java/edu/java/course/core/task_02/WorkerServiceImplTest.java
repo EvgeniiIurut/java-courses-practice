@@ -35,13 +35,14 @@ public class WorkerServiceImplTest {
         assertEquals(exception.getMessage(), "workers is null");
     }
 
+
     @Test
-    void shouldFailIfNextWorkerIsNull() {
+    void shouldFailIfWorkersContainNull() {
         final List<Worker> workers = Arrays.asList(null, null);
-        final WorkerService workerService = new WorkerServiceImpl(workers);
-        var exception = assertThrows(NullPointerException.class,
-                workerService::nextWorker);
-        assertEquals(exception.getMessage(), "nextWorker is null");
+        var exception = assertThrows(IllegalArgumentException.class,
+                () -> new WorkerServiceImpl(workers));
+
+        assertEquals(exception.getMessage(), "Contain null worker");
     }
 
 }
