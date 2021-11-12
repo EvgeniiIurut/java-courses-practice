@@ -6,17 +6,17 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 
 public class TaskTest {
     @Test
     void shouldFailIfPriorityIsNull() {
 
         var exception = assertThrows(NullPointerException.class,
-                () -> new Task(null,Instant.EPOCH));
+                () -> new Task(null, Instant.EPOCH));
 
         assertEquals(exception.getMessage(), "priority is null");
     }
+
     @Test
     void shouldFailIfCreatedDateIsNull() {
 

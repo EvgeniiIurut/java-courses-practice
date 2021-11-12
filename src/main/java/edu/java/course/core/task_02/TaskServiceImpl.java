@@ -7,11 +7,6 @@ public class TaskServiceImpl implements TaskService {
     private final WorkerService workerService;
     private final TaskQueue tasks;
 
-//    public TaskServiceImpl(WorkerService workerService) {
-//        this.workerService = Objects.requireNonNull(workerService, "WorkerService is null");
-//        this.tasks = new PriorityQueue<>(comparing(Task::getPriority).reversed().thenComparing(Task::getCreatedDate));
-//    }
-
     public TaskServiceImpl(WorkerService workerService, TaskQueue queue) {
         this.workerService = Objects.requireNonNull(workerService, "WorkerService is null");
         this.tasks = Objects.requireNonNull(queue, "queue is null");

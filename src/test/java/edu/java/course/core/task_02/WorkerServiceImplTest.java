@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WorkerServiceImplTest {
     final List<Worker> workers = Arrays.asList(new Worker("John", "Doe"), new Worker("John2", "Doe2"));
@@ -13,15 +15,14 @@ public class WorkerServiceImplTest {
 
     @Test
     void shouldReturnNextWorker() {
-        assertEquals(new Worker("John","Doe"), workerService.nextWorker());
+        assertEquals(new Worker("John", "Doe"), workerService.nextWorker());
     }
 
     @Test
     void shouldReturnFirstWorker() {
         workerService.nextWorker();
         workerService.nextWorker();
-        assertEquals(new Worker("John","Doe"), workerService.nextWorker());
-
+        assertEquals(new Worker("John", "Doe"), workerService.nextWorker());
     }
 
 
@@ -36,7 +37,7 @@ public class WorkerServiceImplTest {
 
     @Test
     void shouldFailIfNextWorkerIsNull() {
-        final List<Worker> workers = Arrays.asList(null,null);
+        final List<Worker> workers = Arrays.asList(null, null);
         final WorkerService workerService = new WorkerServiceImpl(workers);
         var exception = assertThrows(NullPointerException.class,
                 workerService::nextWorker);
