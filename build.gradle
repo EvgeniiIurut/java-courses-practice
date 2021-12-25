@@ -9,6 +9,8 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation('org.mockito:mockito-core:3.+')
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
+    implementation 'org.postgresql:postgresql:42.2.18'
+
 
 }
 
