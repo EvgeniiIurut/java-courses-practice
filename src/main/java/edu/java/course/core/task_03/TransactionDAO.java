@@ -1,5 +1,8 @@
 package edu.java.course.core.task_03;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +10,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class TransactionDAO implements DAO<Transaction> {
+    private final static Logger LOG = LoggerFactory.getLogger(TransactionDAO.class);
     Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
@@ -22,10 +26,9 @@ public class TransactionDAO implements DAO<Transaction> {
     @Override
     public void add(Transaction transaction) {
         try {
-            System.out.println("Start transaction");
+            LOG.debug("Start transaction");
             connection = getConnection();
             connection.setAutoCommit(false);
-            System.out.println("connected");
 
             String queryCardFrom = "UPDATE cards set balance = ? where id = ?";
             preparedStatement = connection.prepareStatement(queryCardFrom);
@@ -33,7 +36,6 @@ public class TransactionDAO implements DAO<Transaction> {
             preparedStatement.setObject(2, transaction.getCardFrom().getUuid());
             preparedStatement.executeUpdate();
 
-            System.out.println("Card 1");
 
             String queryCardWhere = "UPDATE cards set balance = ? where id = ?";
             preparedStatement = connection.prepareStatement(queryCardWhere);
@@ -41,7 +43,6 @@ public class TransactionDAO implements DAO<Transaction> {
             preparedStatement.setObject(2, transaction.getCardWhere().getUuid());
             preparedStatement.executeUpdate();
 
-            System.out.println("Card 2");
 
             String queryTransaction = "INSERT INTO transactions(id,date,cardfrom,cardwhere,sum) VALUES (?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryTransaction);
@@ -52,8 +53,6 @@ public class TransactionDAO implements DAO<Transaction> {
             preparedStatement.setBigDecimal(5, transaction.getSum());
             preparedStatement.executeUpdate();
 
-            System.out.println("END");
-
             connection.commit();
 
         } catch (Exception e) {
@@ -61,7 +60,7 @@ public class TransactionDAO implements DAO<Transaction> {
                 try {
                     connection.rollback();
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    LOG.error("Failed. Close connection process. Transaction", e);
                 }
             }
             e.printStackTrace();
@@ -73,10 +72,8 @@ public class TransactionDAO implements DAO<Transaction> {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             } catch (Exception e) {
-                e.printStackTrace();
+                LOG.error("Failed. Close connection process in transaction", e);
             }
         }
 

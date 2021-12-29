@@ -4,22 +4,22 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Card {
-    private UUID uuid;
+    private UUID id;
     private String cardNumber;
     private BigDecimal balance;
 
     public Card(String cardNumber, BigDecimal balance) {
-        this.uuid = UUID.randomUUID();
+        this.id = UUID.randomUUID();
         this.cardNumber = cardNumber;
         this.balance = balance;
     }
 
     public UUID getUuid() {
-        return uuid;
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(UUID id) {
+        this.id = id;
     }
 
     public String getCardNumber() {
@@ -41,7 +41,7 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "uuid=" + uuid +
+                "uuid=" + id +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", balance=" + balance +
                 '}';

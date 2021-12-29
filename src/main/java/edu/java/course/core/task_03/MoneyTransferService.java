@@ -1,9 +1,13 @@
 package edu.java.course.core.task_03;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public class MoneyTransferService {
+    private final static Logger LOG = LoggerFactory.getLogger(MoneyTransferService.class);
 
     public static UUID performTransfer(Card cardFrom, Card card2Where) {
 
@@ -15,6 +19,8 @@ public class MoneyTransferService {
     }
 
     public static void main(String[] args) {
+        LOG.debug("Hello from main debug");
+        LOG.info("Hello from main info");
         CardsDAO cardsDAO = new CardsDAO();
 
         Card card1 = new Card("88005553535",BigDecimal.ZERO);
@@ -24,6 +30,6 @@ public class MoneyTransferService {
         cardsDAO.add(card1);
         cardsDAO.add(card2);
 
-        System.out.println(performTransfer(card1,card2));
+        LOG.debug("{}",performTransfer(card1,card2));
     }
 }
