@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
+    public static DbConfig dbConfig;
     String driverClassName = "org.postgresql.Driver";
-    String connectionUrl = "jdbc:postgresql://localhost:5432/postgres";
-    String dbUser = "postgres";
-    String dbPwd = "128365";
 
     private static ConnectionFactory connectionFactory = null;
 
@@ -21,8 +19,8 @@ public class ConnectionFactory {
     }
 
     public Connection getConnection() throws SQLException {
-        Connection conn = null;
-        conn = DriverManager.getConnection(connectionUrl, dbUser, dbPwd);
+        Connection conn;
+        conn = DriverManager.getConnection(dbConfig.getConnectionUrl(), dbConfig.getDbUser(), dbConfig.getDbPassword());
         return conn;
     }
 

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.UUID;
 
 public class TransactionDAO implements DAO<Transaction> {
@@ -33,14 +34,14 @@ public class TransactionDAO implements DAO<Transaction> {
             String queryCardFrom = "UPDATE cards set balance = ? where id = ?";
             preparedStatement = connection.prepareStatement(queryCardFrom);
             preparedStatement.setBigDecimal(1, transaction.getCardFrom().getBalance().subtract(transaction.getSum()));
-            preparedStatement.setObject(2, transaction.getCardFrom().getUuid());
+            preparedStatement.setObject(2, transaction.getCardFrom().getId());
             preparedStatement.executeUpdate();
 
 
             String queryCardWhere = "UPDATE cards set balance = ? where id = ?";
             preparedStatement = connection.prepareStatement(queryCardWhere);
             preparedStatement.setBigDecimal(1, transaction.getCardWhere().getBalance().add(transaction.getSum()));
-            preparedStatement.setObject(2, transaction.getCardWhere().getUuid());
+            preparedStatement.setObject(2, transaction.getCardWhere().getId());
             preparedStatement.executeUpdate();
 
 
@@ -48,8 +49,8 @@ public class TransactionDAO implements DAO<Transaction> {
             preparedStatement = connection.prepareStatement(queryTransaction);
             preparedStatement.setObject(1, transaction.getUuid());
             preparedStatement.setTimestamp(2, java.sql.Timestamp.from(transaction.getDate()));
-            preparedStatement.setObject(3, transaction.getCardFrom().getUuid());
-            preparedStatement.setObject(4, transaction.getCardWhere().getUuid());
+            preparedStatement.setObject(3, transaction.getCardFrom().getId());
+            preparedStatement.setObject(4, transaction.getCardWhere().getId());
             preparedStatement.setBigDecimal(5, transaction.getSum());
             preparedStatement.executeUpdate();
 
@@ -80,8 +81,8 @@ public class TransactionDAO implements DAO<Transaction> {
     }
 
     @Override
-    public void get(UUID id) {
-
+    public Optional<Transaction> get(UUID id) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

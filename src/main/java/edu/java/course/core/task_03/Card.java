@@ -8,17 +8,17 @@ public class Card {
     private String cardNumber;
     private BigDecimal balance;
 
-    public Card(String cardNumber, BigDecimal balance) {
-        this.id = UUID.randomUUID();
+    public Card(UUID id, String cardNumber, BigDecimal balance) {
+        this.id = id;
         this.cardNumber = cardNumber;
         this.balance = balance;
     }
 
-    public UUID getUuid() {
+    public UUID getId() {
         return id;
     }
 
-    public void setUuid(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

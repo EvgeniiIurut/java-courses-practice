@@ -1,5 +1,6 @@
 package edu.java.course.core.task_03;
 
+import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +22,12 @@ public class MoneyTransferService {
     public static void main(String[] args) {
         LOG.debug("Hello from main debug");
         LOG.info("Hello from main info");
-        CardsDAO cardsDAO = new CardsDAO();
+//      new DbConfig() use real config
+        CardsDAO cardsDAO = new CardsDAO(new PGSimpleDataSource());
 
-        Card card1 = new Card("88005553535",BigDecimal.ZERO);
+        Card card1 = new Card(UUID.randomUUID(), "88005553535",BigDecimal.ZERO);
 
-        Card card2 = new Card("22222222222",BigDecimal.ZERO);
+        Card card2 = new Card(UUID.randomUUID(), "22222222222",BigDecimal.ZERO);
 
         cardsDAO.add(card1);
         cardsDAO.add(card2);
