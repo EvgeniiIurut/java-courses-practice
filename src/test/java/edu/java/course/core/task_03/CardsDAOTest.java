@@ -25,7 +25,7 @@ class CardsDAOTest {
     }
 
     @Test
-    void shouldReturnNullWhenCardIsNotExist() {
+    void shouldReturnEmptyWhenCardIsNotExist() {
         // given
         final UUID notExistCardId = UUID.randomUUID();
 
